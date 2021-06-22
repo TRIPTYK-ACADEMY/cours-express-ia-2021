@@ -1,0 +1,5 @@
+/* applique ce style à la balise body de votre html */
+body {
+  /* Le contenu en arrière plan de la page sera rouge petant */
+  background-color: green;
+}
