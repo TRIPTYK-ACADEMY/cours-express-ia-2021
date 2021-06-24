@@ -3,8 +3,34 @@ const router = require("./router");
 const notFound = require("./middlewares/404");
 const ejsLayouts = require("express-ejs-layouts");
 const errorMiddleware = require("./middlewares/500");
+const morgan = require("morgan");
+const rfs = require("rotating-file-stream");
 
 const application = express();
+
+application.use(
+  morgan("combined", {
+    stream: rfs.createStream("access.log", {
+      interval: "1d",
+      path: "./logs",
+    }),
+    skip: function (req, res) {
+      return res.statusCode > 400;
+    },
+  })
+);
+
+application.use(
+  morgan("combined", {
+    stream: rfs.createStream("error.log", {
+      interval: "1d",
+      path: "./logs",
+    }),
+    skip: function (req, res) {
+      return res.statusCode <= 400;
+    },
+  })
+);
 
 application.set("view engine", "ejs"); // on vient définir le moteur de rendu, dans ce cas-ci EJS.
 application.set("views", `${process.cwd()}/views`); // on défini le dossier où se trouve les vues

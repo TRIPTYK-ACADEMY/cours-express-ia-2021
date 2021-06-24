@@ -5,4 +5,5 @@ module.exports = function errorMiddleware(err, req, res, next) {
   res.render("error", {
     error: err,
   });
+  next();
 };
