@@ -8,6 +8,14 @@ exports.index = async (req, res, next) => {
   });
 };
 
+exports.profile = async (req, res, next) => {
+  const user = await usersModel.findById(req.params.id);
+
+  res.render("profile", {
+    user,
+  });
+};
+
 exports.create = async (req, res, next) => {
   if (req.method === "GET") {
     res.render("create-user");
