@@ -9,25 +9,22 @@ exports.index = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  const newUser = new usersModel({
-    lastName: "Jacquy",
-    firstName: "Ajax",
-  });
+  if (req.method === "GET") {
+    res.render("create-user");
+  } else {
+    // ... création de l'utilisateur
+    console.log("Le fichier : ", req.file);
+    // le body est le contenu envoyé par le formulaire
+    console.log("Le contenu : ", req.body);
+    const newUser = new usersModel({
+      lastName: req.body.lastName,
+      firstName: req.body.firstName,
+      avatar: req.file.filename,
+    });
 
-  await newUser.save();
+    await newUser.save();
 
-  res.send("Utilisateur créé avec succès !");
-};
-
-exports.changeAvatar = async (req, res, next) => {
-  const id = req.params.id;
-
-  const user = await usersModel.findById(id);
-  const uploadedFile = req.file;
-
-  user.avatar = uploadedFile.filename;
-
-  await user.save();
-
-  res.send("Vous avez un nouvel avatar !");
+    // redirige sur la page d'acceuil après avir sauvegardé l'utilisateur !
+    res.redirect("/");
+  }
 };

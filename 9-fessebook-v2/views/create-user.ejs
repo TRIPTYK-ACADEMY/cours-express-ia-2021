@@ -1,0 +1,23 @@
+<h1>Créez votre magnifique profile fessebook!</h1>
+<form
+  id="profile-form"
+  method="POST"
+  action="/users"
+  enctype="multipart/form-data"
+>
+  <div>
+    <label for="lastName">Votre prénom</label>
+    <input type="text" name="lastName" id="lastName" />
+  </div>
+  <div>
+    <label for="lastName">Votre nom</label>
+    <input type="text" name="firstName" id="firstName" />
+  </div>
+  <div>
+    <label for="lastName">Votre photo de profil</label>
+    <input type="file" name="document" id="document" />
+  </div>
+  <div>
+    <button type="submit">Changer l'avatar</button>
+  </div>
+</form>

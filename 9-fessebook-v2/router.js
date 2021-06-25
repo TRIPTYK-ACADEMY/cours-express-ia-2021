@@ -1,13 +1,11 @@
 const { Router } = require("express");
-const { index, create, changeAvatar } = require("./controllers/users");
+const { index, create } = require("./controllers/users");
 const file = require("./middlewares/file");
 
 const router = Router();
 
 router.get("/", index);
 
-router.post("/users", create);
-
-router.post("/avatar/:id", file.single("document"), changeAvatar);
+router.route("/users").get(create).post(file.single("document"), create);
 
 module.exports = router;

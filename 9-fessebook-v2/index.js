@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 require("./models/users");
 const express = require("express");
 const router = require("./router");
+const ejsLayouts = require("express-ejs-layouts");
 
 async function init() {
   try {
@@ -18,6 +19,8 @@ async function init() {
 
     thefessebookApp.set("view engine", "ejs");
     thefessebookApp.set("views", `${process.cwd()}/views`); // on défini le dossier où se trouvet les vues
+
+    thefessebookApp.use(ejsLayouts);
 
     thefessebookApp.use(router);
 

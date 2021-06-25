@@ -1,0 +1,22 @@
+body {
+  background-color: black;
+  color: red;
+}
+
+#profile-form > div {
+  margin-top: 10px;
+}
+
+#profile-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#profile-form {
+  text-align: center;
+}
+
+#users-list img {
+  width: 64px;
+  height: 64px;
+}
