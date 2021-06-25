@@ -1,0 +1,18 @@
+{
+  "name": "8-exercice-upload",
+  "version": "1.0.0",
+  "description": "# Dans votre application Express, créez une route index (/) qui va vous afficher tous vos utilisateurs (qui sont stockés dans Mongo)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.14",
+    "multer": "^1.4.2"
+  }
+}
