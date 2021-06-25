@@ -3,6 +3,7 @@ require("./models/users");
 const express = require("express");
 const router = require("./router");
 const ejsLayouts = require("express-ejs-layouts");
+const errorMiddleware = require("./middlewares/500");
 
 async function init() {
   try {
@@ -15,6 +16,9 @@ async function init() {
 
     const thefessebookApp = express();
 
+    // middleware permettant à express de parser correctement les données que vous envoyez au formulaire
+    thefessebookApp.use(express.urlencoded({ extended: true }));
+
     thefessebookApp.use("/public", express.static(`${process.cwd()}/public`));
 
     thefessebookApp.set("view engine", "ejs");
@@ -23,6 +27,7 @@ async function init() {
     thefessebookApp.use(ejsLayouts);
 
     thefessebookApp.use(router);
+    thefessebookApp.use(errorMiddleware);
 
     thefessebookApp.listen(6969, () => {
       console.log("Fessebook est en marche !");
