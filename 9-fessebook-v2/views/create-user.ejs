@@ -5,6 +5,9 @@
   action="/users"
   enctype="multipart/form-data"
 >
+  <!--
+  enctype obligatoire sinon express ne prendra pas votre image ni vos champs
+  -->
   <div>
     <label for="lastName">Votre prénom</label>
     <input type="text" name="lastName" id="lastName" />

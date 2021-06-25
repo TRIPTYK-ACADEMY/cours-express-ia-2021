@@ -31,6 +31,7 @@ exports.create = async (req, res, next) => {
     const lastName = req.body.lastName.toLowerCase();
     const firstName = req.body.firstName.toLowerCase();
 
+    // on check si le nom-prénom existe déjà et on retourne le nombre de fois qu'il existe déjà
     const alreadyExists = await usersModel.count({
       lastName,
       firstName,
@@ -41,6 +42,7 @@ exports.create = async (req, res, next) => {
       firstName,
       avatar: req.file.filename,
       slug: slug(
+        // si l'utilisateur existe déjà, on rajoute un chiffre à la fin du slug our que le slug reste UNIQUE
         `${req.body.lastName} ${req.body.firstName} ${
           alreadyExists !== 0 ? alreadyExists : ""
         }`
@@ -49,7 +51,7 @@ exports.create = async (req, res, next) => {
 
     await newUser.save();
 
-    // redirige sur la page d'acceuil après avir sauvegardé l'utilisateur !
+    // redirige sur la page d'acceuil après avoir sauvegardé l'utilisateur !
     res.redirect("/");
   }
 };
