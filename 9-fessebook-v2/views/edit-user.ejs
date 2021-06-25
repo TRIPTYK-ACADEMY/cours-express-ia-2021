@@ -1,0 +1,28 @@
+<h1>Editer votre magnifique profile fessebook!</h1>
+<form
+  id="profile-form"
+  method="POST"
+  action="/users/edit"
+  enctype="multipart/form-data"
+>
+  <!--
+  enctype obligatoire sinon express ne prendra pas votre image ni vos champs
+  -->
+  <div>
+    <input type="hidden" name="id" id="id" value="<%- user._id %>" />
+    <label for="lastName">Votre prénom</label>
+    <input type="text" name="lastName" id="lastName" value="<%- user.firstName %>"  />
+  </div>
+  <div>
+    <label for="lastName">Votre nom</label>
+    <input type="text" name="firstName" id="firstName" value="<%- user.lastName %>"/>
+  </div>
+  <div>
+    <label for="lastName">Votre photo de profil</label>
+    <span>actual : <%- user.avatar %></span><br />
+    <input type="file" name="document" id="document" />
+  </div>
+  <div>
+    <button type="submit">Editer mon avatar</button>
+  </div>
+</form>

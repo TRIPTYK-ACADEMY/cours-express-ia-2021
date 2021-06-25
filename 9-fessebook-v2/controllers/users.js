@@ -55,3 +55,28 @@ exports.create = async (req, res, next) => {
     res.redirect("/");
   }
 };
+
+exports.edit = async (req, res, next) =>{
+  if (req.method === "GET") {
+    const {slug} = req.params;
+    const user  = await usersModel.findOne({slug}).lean()
+    res.render("edit-user",{user});
+  }  else {
+    // ... création de l'utilisateur
+    console.log("Le fichier : ", req.file);
+    // le body est le contenu envoyé par le formulaire
+    console.log("Le contenu : ", req.body);
+    const id = req.body.id;
+    const lastName = req.body.lastName.toLowerCase();
+    const firstName = req.body.firstName.toLowerCase();
+    
+    if( !req.file) {
+      const user = await usersModel.findByIdAndUpdate(id,{lastName, firstName})
+    } else {
+
+      const user = await usersModel.findByIdAndUpdate(id,{lastName, firstName, avatar: req.file.filename})
+    }
+    return res.redirect('/')
+  }
+
+}

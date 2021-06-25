@@ -6,6 +6,7 @@ const storage = multer.diskStorage({
     cb(null, "public/uploads");
   },
   filename: (req, file, cb) => {
+    console.log('test')
     // le nom du fichier stocké
     cb(null, `${Date.now()}_${file.originalname}`);
   },

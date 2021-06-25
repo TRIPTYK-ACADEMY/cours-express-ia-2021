@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { index, create, profile } = require("./controllers/users");
+const { index, create, profile, edit } = require("./controllers/users");
 const file = require("./middlewares/file");
 const validate = require("./middlewares/validate");
 
@@ -13,5 +13,7 @@ router
   .post(file.single("document"), validate, create);
 
 router.route("/users/:slug").get(profile);
+router.route("/users/edit/").post(file.single("document"),validate,edit);
+router.route("/users/edit/:slug").get(edit);
 
 module.exports = router;
