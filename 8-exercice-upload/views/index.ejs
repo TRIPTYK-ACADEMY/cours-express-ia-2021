@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TheFesseBook, page d'accueil</title>
+  </head>
+  <body>
+    <h1>TheFesseBook, toutes les têtes de cul de votre région</h1>
+    <% users.forEach((user) => {%> <%- user.firstName %> <%- user.lastName %>
+    <img src="/public/uploads/<%- user.avatar %>" />
+    <form
+      method="POST"
+      action="/avatar/<%- user._id %>"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="document" id="document" />
+      <button type="submit">Changer l'avatar</button>
+    </form>
+    <% }); %>
+  </body>
+</html>
