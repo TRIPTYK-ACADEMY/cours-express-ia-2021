@@ -8,6 +8,6 @@ router.get("/", index);
 
 router.route("/users").get(create).post(file.single("document"), create);
 
-router.route("/users/:id").get(profile);
+router.route("/users/:slug").get(profile);
 
 module.exports = router;

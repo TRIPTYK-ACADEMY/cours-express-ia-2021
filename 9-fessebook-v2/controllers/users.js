@@ -1,4 +1,5 @@
 const usersModel = require("../models/users");
+const slug = require("slug");
 
 exports.index = async (req, res, next) => {
   const users = await usersModel.find();
@@ -9,7 +10,9 @@ exports.index = async (req, res, next) => {
 };
 
 exports.profile = async (req, res, next) => {
-  const user = await usersModel.findById(req.params.id);
+  const user = await usersModel.findOne({
+    slug: req.params.slug,
+  });
 
   res.render("profile", {
     user,
@@ -24,10 +27,24 @@ exports.create = async (req, res, next) => {
     console.log("Le fichier : ", req.file);
     // le body est le contenu envoyé par le formulaire
     console.log("Le contenu : ", req.body);
+
+    const lastName = req.body.lastName.toLowerCase();
+    const firstName = req.body.firstName.toLowerCase();
+
+    const alreadyExists = await usersModel.count({
+      lastName,
+      firstName,
+    });
+
     const newUser = new usersModel({
-      lastName: req.body.lastName,
-      firstName: req.body.firstName,
+      lastName,
+      firstName,
       avatar: req.file.filename,
+      slug: slug(
+        `${req.body.lastName} ${req.body.firstName} ${
+          alreadyExists !== 0 ? alreadyExists : ""
+        }`
+      ),
     });
 
     await newUser.save();
