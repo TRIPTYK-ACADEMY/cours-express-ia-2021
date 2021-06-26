@@ -35,6 +35,7 @@ async function init() {
       resave: true,
       secret:'triptyk'
     }))
+    
     thefessebookApp.use((req,res,next)=>{
       res.locals.authUser = req.session.user ||null;
       next();
