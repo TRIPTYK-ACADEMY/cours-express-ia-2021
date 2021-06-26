@@ -2,11 +2,13 @@ const usersModel = require("../models/users");
 const slug = require("slug");
 
 exports.index = async (req, res, next) => {
-  const users = await usersModel.find();
 
+  const users = await usersModel.find();
   res.render("index", {
     users,
   });
+
+  
 };
 
 exports.profile = async (req, res, next) => {
@@ -79,4 +81,28 @@ exports.edit = async (req, res, next) =>{
     return res.redirect('/')
   }
 
+}
+
+exports.login = async (req, res, next) =>{
+  if (req.method === "GET") {
+  return res.render('login-user');
+  } else {
+    const {login, password} = req.body;
+    const isValidUser =await usersModel.checkUser(login,password)
+   if(!isValidUser){
+     return res.redirect("/login")
+   } else {
+    req.session.user=isValidUser;
+    return res.redirect("/")
+   }
+  }
+}
+exports.register = async (req, res, next) =>{
+  if (req.method === "GET") {
+  return res.render('register-user');
+  } else {
+    const {login, password,isAdmin} = req.body;
+    const user = await usersModel.register(login, password, isAdmin);
+    return res.redirect("/login")
+  }
 }

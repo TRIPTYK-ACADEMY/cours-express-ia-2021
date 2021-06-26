@@ -1,9 +1,10 @@
-const { createUser } = require("../validations/users");
 
-module.exports = async function validate(req, res, next) {
+const { registerUser } = require("../validations/users");
+
+module.exports = async function validateRegister(req, res, next) {
   // j'éxécute chaque validation et attends la fin de leur éxécution
   const result = await Promise.all(
-    createUser.map((validation) => validation.run(req))
+    registerUser.map((validation) => validation.run(req))
   );
 
   // on va stocker toutes les erreurs de notre validation dedans
